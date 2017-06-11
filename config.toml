@@ -24,12 +24,12 @@ disqusShortname = "davidjankoski"
 #[[Params.bigimg]]
 #  src = "img/sphere.jpg"
 #  desc = "Sphere"
-#[[Params.bigimg]]
-#  src = "img/hexagon.jpg"
-#  desc = "Hexagon"
+[[Params.bigimg]]
+  src = "img/hexagon.jpg"
+  desc = "Hexagon"
 
 [Author]
-  name = "David Jankoski"
+  #name = "David Jankoski"
   email = "leledavid@gmail.com"
   #facebook = "username"
   #googleplus = "+username" # or xxxxxxxxxxxxxxxxxxxxx
@@ -47,10 +47,7 @@ disqusShortname = "davidjankoski"
   #bandcamp = "username"
   #itchio = "username"
 
-#[[menu.main]]
-#    name = "Blog"
-#    url = ""
-#    weight = 1
+# Buttons upper-right corner ----- 
 
 [[menu.main]]
     name = "About"
@@ -61,6 +58,18 @@ disqusShortname = "davidjankoski"
     name = "CV"
     url = "page/cv/"
     weight = 2
+
+[[menu.main]]
+    name = "Tags"
+    url = "tags"
+    weight = 3
+
+# removed but kept as examples
+
+#[[menu.main]]
+#    name = "Blog"
+#    url = ""
+#    weight = 1
 
 #[[menu.main]]
 #    identifier = "samples"
@@ -84,8 +93,3 @@ disqusShortname = "davidjankoski"
 #    name = "Code Sample"
 #    url = "post/2016-03-08-code-sample"
 #    weight = 3
-
-[[menu.main]]
-    name = "Tags"
-    url = "tags"
-    weight = 3
