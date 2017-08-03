@@ -11,5 +11,14 @@
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Hello World</title>
+      <link>/categories/hello-world/</link>
+      <pubDate>Thu, 03 Aug 2017 00:00:00 +0000</pubDate>
+      <author>leledavid@gmail.com</author>
+      <guid>/categories/hello-world/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
