@@ -18,12 +18,12 @@ The idea of having your own blog is kinda scary or intimidating at first, becaus
 But there are many, many good reasons for keeping a blog - besides sharing with others what you did and how you did it, which could potentially also help somebody else accomplish some task, to keeping track of stuff for your own sake. I really like the idea that writing blog posts forces one to practice clear, concise thought, and clean and reproducible workflow.  
 In the spirit of [this tweet](https://twitter.com/gdequeiroz/status/821766148655968256) from Gabriela de Queiroz - the initiator of #RLadies:  
 
-`r htmltools::HTML("{{< tweet 821766148655968256 >}}")`  
-  
 `r blogdown::shortcode('tweet', '821766148655968256')`
 
 So I decided to try it out for myself and write every now and than about my projects and interests. At first I started with the [Beautiful Jekyll](http://deanattali.com/beautiful-jekyll/) theme by [Dean Atalli](http://deanattali.com/) which was very easy to set up thanks to his great documentation.  
-But some time ago I found out about [Yihui Xie's](https://yihui.name/) blogdown package and I loved the idea that all of this is made possible from within R itself! [blogdown](https://github.com/rstudio/blogdown) is truly an amazing package and makes the whole process of setting up your own blog, installing themes etc. so easy. It's pretty cool that people like me who don't know much about html, css, javascript and web development - but can work their way around in R can just download a package and set up a personal blog by calling a couple of functions! I think Yihui has contributed pretty amazing stuff to the R world and I really like all of his open-source projects as well as his great ability to find and place funny gifs on every chance he gets :-)  
+But some time ago I found out about [Yihui Xie's](https://yihui.name/) blogdown package and I loved the idea that all of this is made possible from within R itself! [blogdown](https://github.com/rstudio/blogdown) is truly an amazing package and makes the whole process of setting up your own blog, installing themes etc. so easy. It's pretty cool that people like me who don't know much about html, css, javascript and web development - but can work their way around in R can just download a package and set up a personal blog by calling a couple of functions! I think Yihui has contributed pretty amazing stuff to the R world and I really like all of his open-source projects as well as his great ability to use every chance he gets to place somewhere a funny gif :-)  
+I followed the suggested workflow in the accompanying [blogdown book]
+https://bookdown.org/yihui/blogdown/workflow.html
 
 Hugo - the work engine underneath the blogdown package offers plethora of themes for the look of your website but I really liked the one from Dean and wanted to stick with it. I was very happy to find out that [Michael Romero](https://github.com/halogenica/beautifulhugo) has ported the theme to Hugo as Beautiful Hugo.  
 
