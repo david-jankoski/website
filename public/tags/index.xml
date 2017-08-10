@@ -7,9 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>leledavid@gmail.com</managingEditor>
     <webMaster>leledavid@gmail.com</webMaster>
+    <lastBuildDate>Thu, 10 Aug 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Desktop Notification</title>
+      <link>/tags/desktop-notification/</link>
+      <pubDate>Thu, 10 Aug 2017 00:00:00 +0000</pubDate>
+      <author>leledavid@gmail.com</author>
+      <guid>/tags/desktop-notification/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Httr</title>
+      <link>/tags/httr/</link>
+      <pubDate>Thu, 10 Aug 2017 00:00:00 +0000</pubDate>
+      <author>leledavid@gmail.com</author>
+      <guid>/tags/httr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rvest</title>
+      <link>/tags/rvest/</link>
+      <pubDate>Thu, 10 Aug 2017 00:00:00 +0000</pubDate>
+      <author>leledavid@gmail.com</author>
+      <guid>/tags/rvest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Schedule Task</title>
+      <link>/tags/schedule-task/</link>
+      <pubDate>Thu, 10 Aug 2017 00:00:00 +0000</pubDate>
+      <author>leledavid@gmail.com</author>
+      <guid>/tags/schedule-task/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on David Jankoski</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on David Jankoski</description>
+    <title>Httr on David Jankoski</title>
+    <link>/tags/httr/</link>
+    <description>Recent content in Httr on David Jankoski</description>
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>leledavid@gmail.com</managingEditor>
     <webMaster>leledavid@gmail.com</webMaster>
     <lastBuildDate>Thu, 10 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/httr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,15 +20,6 @@
       <guid>/post/scrape-book-deals-of-the-day/</guid>
       <description>Often I come across some websites that have free e-book deals each day or once in a while. Sometimes I’m lucky and it’s currently some title or topic I am interested in, but usually it’s some topic I have absolutely no clue about (“Learning Linux Binary Analysis”).
 However, you never know! Tomorrow or maybe in 18 days time there might be something on exactly the topic you are curious about!</description>
-    </item>
-    
-    <item>
-      <title>thumbs up blogdown!</title>
-      <link>/post/thumbs-up-blogdown/</link>
-      <pubDate>Thu, 03 Aug 2017 00:00:00 +0000</pubDate>
-      <author>leledavid@gmail.com</author>
-      <guid>/post/thumbs-up-blogdown/</guid>
-      <description>Hello world post A lot of times I talk to friends and colleagues about the process of finding out new interesting material, project ideas, cool visualisations or just programming language tricks’n’tips in general and the majority of time the source of these things are people’s blogs. Additionally twitter and the #rstats hashtag are a major source as well but I find it is generally just a medium to actual blog posts.</description>
     </item>
     
   </channel>

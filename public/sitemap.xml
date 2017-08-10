@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/scrape-book-deals-of-the-day/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/thumbs-up-blogdown/</loc>
     <lastmod>2017-08-03T00:00:00+00:00</lastmod>
   </url>
@@ -22,7 +27,13 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/desktop-notification/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -33,18 +44,43 @@
   </url>
   
   <url>
+    <loc>/tags/httr/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/page/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2017-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rvest/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/schedule-task/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/web-scraping/</loc>
+    <lastmod>2017-08-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
