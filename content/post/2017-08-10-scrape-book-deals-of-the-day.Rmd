@@ -48,7 +48,7 @@ We'll pull out the book title and the cover image.
 
 ```{r read_site}
 # Scrape book deal of the day -----
-getwd()
+
 # read in html
 parse_site <-
   packt %>%
@@ -90,4 +90,4 @@ Useful packages taskscheduleR and cron - however on win there is LOGON opt but c
 
 - For the analysis part need to find a way how to automatically detect the keyword that stands for a certain language/technology from the book title. I'm sure there is somewhere out there a nice list of all possible languages and technologies under the sun that could be matched against.  
 
-- A possible adaptation for the purpose of this scraper would be to just store some keywords that one is interested in like e.g. "machine learning", "data structures c" and fuzzy-match against it in order to signal an offer tailored to one's interests.
+- A possible adaptation for the purpose of this scraper would be to just store some keywords that one is interested in like e.g. "machine learning", "data structures c" and fuzzy-match against it in order to signal an offer tailored to one's interests.  
