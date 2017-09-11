@@ -42,17 +42,10 @@ packt <- "https://www.packtpub.com/packt/offers/free-learning"
 ## Scraping the book deal  
 
 Inspecting the html of the page we notice that we are interested in the "`dotd-title`" and the "`dotd-main-book-image float-left`" `div`'s.   
-![](../img/packt_html_snap.png)  
+![](/img/packt_html_snap.png)  
 
-We'll pull out the book title and the cover image.
+We'll pull out the book title and the cover image.  
 
-1. try img/packt_html_snap.png
-![](img/packt_html_snap.png)  
-
-2. try content/img/packt_html_snap.png
-![](content/img/packt_html_snap.png)  
-3. try ~/content/img/packt_html_snap.png
-![](~/content/img/packt_html_snap.png)
 ```{r read_site}
 # Scrape book deal of the day -----
 
