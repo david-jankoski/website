@@ -39,13 +39,16 @@ library("notifier")
 packt <- "https://www.packtpub.com/packt/offers/free-learning"
 ```
 
+## Scraping the book deal  
+
 Inspecting the html of the page we notice that we are interested in the "`dotd-title`" and the "`dotd-main-book-image float-left`" `div`'s.   
 ![](../img/packt_html_snap.png)  
 
+We'll pull out the book title and the cover image.
 
 ```{r read_site}
 # Scrape book deal of the day -----
-getwd()
+
 # read in html
 parse_site <-
   packt %>%
@@ -74,4 +77,17 @@ img_link <-
 ```
 
 
+## Push notification to desktop
 
+Gabor Csardi's notifer package or alternatively using toast on win or notify-send on linux. Note that notifier is currently broken so resort to version 1.0.0 
+
+
+## Schedule script on logon 
+
+Useful packages taskscheduleR and cron - however on win there is LOGON opt but cron on linux offers only datetime triggers (or i couldn't figure it out). therefore scheduled it as a bash script.
+
+## Future to do's
+
+- For the analysis part need to find a way how to automatically detect the keyword that stands for a certain language/technology from the book title. I'm sure there is somewhere out there a nice list of all possible languages and technologies under the sun that could be matched against.  
+
+- A possible adaptation for the purpose of this scraper would be to just store some keywords that one is interested in like e.g. "machine learning", "data structures c" and fuzzy-match against it in order to signal an offer tailored to one's interests.  

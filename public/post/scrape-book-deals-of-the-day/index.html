@@ -206,12 +206,14 @@ library(&quot;notifier&quot;)
 
 # packt url for free learning deal of the day
 packt &lt;- &quot;https://www.packtpub.com/packt/offers/free-learning&quot;</code></pre>
+<div id="scraping-the-book-deal" class="section level2">
+<h2>Scraping the book deal</h2>
 <p>Inspecting the html of the page we notice that we are interested in the “<code>dotd-title</code>” and the “<code>dotd-main-book-image float-left</code>” <code>div</code>’s.<br />
 <img src="/home/david-vogelstruis/projects/website/content/img/packt_html_snap.png" /></p>
+<p>We’ll pull out the book title and the cover image.</p>
 <pre class="r"><code># Scrape book deal of the day -----
-getwd()</code></pre>
-<pre><code>## [1] &quot;/home/david-vogelstruis/projects/website/content/post&quot;</code></pre>
-<pre class="r"><code># read in html
+
+# read in html
 parse_site &lt;-
   packt %&gt;%
   httr::GET() %&gt;%
@@ -235,6 +237,22 @@ img_link &lt;-
   rvest::html_node(&quot;img&quot;) %&gt;%
   rvest::html_attr(&quot;src&quot;) %&gt;%
   stringr::str_replace_all(&quot; &quot;, &quot;%20&quot;)</code></pre>
+</div>
+<div id="push-notification-to-desktop" class="section level2">
+<h2>Push notification to desktop</h2>
+<p>Gabor Csardi’s notifer package or alternatively using toast on win or notify-send on linux. Note that notifier is currently broken so resort to version 1.0.0</p>
+</div>
+<div id="schedule-script-on-logon" class="section level2">
+<h2>Schedule script on logon</h2>
+<p>Useful packages taskscheduleR and cron - however on win there is LOGON opt but cron on linux offers only datetime triggers (or i couldn’t figure it out). therefore scheduled it as a bash script.</p>
+</div>
+<div id="future-to-dos" class="section level2">
+<h2>Future to do’s</h2>
+<ul>
+<li><p>For the analysis part need to find a way how to automatically detect the keyword that stands for a certain language/technology from the book title. I’m sure there is somewhere out there a nice list of all possible languages and technologies under the sun that could be matched against.</p></li>
+<li><p>A possible adaptation for the purpose of this scraper would be to just store some keywords that one is interested in like e.g. “machine learning”, “data structures c” and fuzzy-match against it in order to signal an offer tailored to one’s interests.</p></li>
+</ul>
+</div>
 </div>
 
       </article>
