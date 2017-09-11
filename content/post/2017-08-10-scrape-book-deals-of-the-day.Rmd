@@ -51,7 +51,8 @@ We'll pull out the book title and the cover image.
 
 2. try content/img/packt_html_snap.png
 ![](content/img/packt_html_snap.png)  
-
+3. try ~/content/img/packt_html_snap.png
+![](~/content/img/packt_html_snap.png)
 ```{r read_site}
 # Scrape book deal of the day -----
 
