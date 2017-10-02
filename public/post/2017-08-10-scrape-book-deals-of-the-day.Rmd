@@ -29,7 +29,8 @@ Alright time to get the tools out...
 ```{r setup, warning=FALSE, message=FALSE}
 
 # httr & rvest scraping tools
-library("tidyverse")
+library("httr")
+library("rvest")
 # for reading and writing images 
 library("magick")
 # for pushing a notification to the desktop
@@ -41,12 +42,13 @@ packt <- "https://www.packtpub.com/packt/offers/free-learning"
 
 ## Scraping the book deal  
 
-Inspecting the html of the page we notice that we are interested in the "`dotd-title`" and the "`dotd-main-book-image float-left`" `div`'s.   
+Inspecting the html of the page we notice that we are interested in the "`dotd-title`" and the "`dotd-main-book-image float-left`" `div`'s. This concrete example is simpler and it was easy to locate the items by right-clicking on them in the browser and then `Inspect Element`-ing them but for more complicated tasks I find [Selector Gadget](http://selectorgadget.com/) pretty awesome as it saves me lots of time.  
+
 ![](/img/packt_html_snap.png)  
 
 We'll pull out the book title and the cover image.  
 
-```{r read_site}
+```{r read_site, echo = TRUE, eval = FALSE}
 # Scrape book deal of the day -----
 
 # read in html
@@ -74,16 +76,47 @@ img_link <-
   rvest::html_attr("src") %>%
   stringr::str_replace_all(" ", "%20")
 
+# pick a place where you want to store
+# the book image
+image_path <- "path of your choice.png"
+
+# grab and store the image
+img_link %>%
+  paste0("http:", .) %>%
+  magick::image_read() %>%
+  magick::image_write(path = image_path)
+
 ```
 
 
 ## Push notification to desktop
 
-Gabor Csardi's notifer package or alternatively using toast on win or notify-send on linux. Note that notifier is currently broken so resort to version 1.0.0 
+In order to push a notification message to the desktop one could use a `system2` call to the underlying OS lib like toast for win or notify-send for linux, however there is a neat package from Gábor Csárdi called [notifier](https://github.com/gaborcsardi/notifier) that does all the work independent of platform. Just a small note that, at the time of writing, `notifier` was broken so [resort](https://github.com/gaborcsardi/notifier/issues/21) to version 1.0.0 from CRAN.  
+Given the previous pieces of getting the book title and image went through alright, pushing a custom desktop notification now is simply calling  
+
+```{r push_notif, echo = TRUE, eval = FALSE}
+
+# push desktop notification
+notifier::notify(
+  title = "Packt book deal of the day",
+  msg = book_deal,
+  image = image_path)
+
+```
+
+This should already pop a notification on your screen with the title of the book as the body and a small image of the cover next to it.
 
 
 ## Schedule script on logon 
 
+
+Last thing to do is to make this a task that would run on certain schedule or trigger. After some considerations I came to the conclusion that, for me, there was not one solid time period where I could definitely say I'm almost every day in front of the computer in order to use it for scheduling.  
+Therefore it must be some other trigger than time. I figured a suitable moment would be for example 10 mins after I log in on my computer. I'm still opening programs or closing old tabs or generally still not focused on doing some thing, so it would be best to set up a user log-on trigger with certain time delay in order to fire up the scraper.  
+
+I found that there are 2 packages that might come in handy here: [taskscheduleR](https://cran.r-project.org/web/packages/taskscheduleR/index.html) and [cronR](https://cran.r-project.org/web/packages/cronR/index.html). After some fiddling around I managed to get this working with `taskscheduleR` on windows. However if you want to schedule tasks, or in general make your system do certain things through R, make sure that you have the appropriate rights and that you start RStudio as an [admin](https://github.com/bnosac/taskscheduleR/issues/16)/sudo.  
+This has come and bit me a couple of times (another time was when i was trying to start a docker deamon on a linux machine and it kept failing with status 125 until i figured that i need to do `sudo rstudio` in order for it to work).
+
+cron does not quite have the same options as tasksch so had to resort to simple bash script on linux. 
 Useful packages taskscheduleR and cron - however on win there is LOGON opt but cron on linux offers only datetime triggers (or i couldn't figure it out). therefore scheduled it as a bash script.
 
 ## Future to do's

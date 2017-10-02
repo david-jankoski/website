@@ -24,7 +24,8 @@ So I thought to piece together a small scraper that would get the book deal of t
 In order to get the book one just needs to head over to their website and make a free account which entitles then the free download (availabe in a couple of different formats as well). I have used this opportuntity to get my hands on some books about 3D Printing, Git essentials as well as the obligatory Javascript data structures and algorithms :–).</p>
 <p>Alright time to get the tools out…</p>
 <pre class="r"><code># httr &amp; rvest scraping tools
-library(&quot;tidyverse&quot;)
+library(&quot;httr&quot;)
+library(&quot;rvest&quot;)
 # for reading and writing images 
 library(&quot;magick&quot;)
 # for pushing a notification to the desktop
@@ -34,8 +35,11 @@ library(&quot;notifier&quot;)
 packt &lt;- &quot;https://www.packtpub.com/packt/offers/free-learning&quot;</code></pre>
 <div id="scraping-the-book-deal" class="section level2">
 <h2>Scraping the book deal</h2>
-<p>Inspecting the html of the page we notice that we are interested in the “<code>dotd-title</code>” and the “<code>dotd-main-book-image float-left</code>” <code>div</code>’s.<br />
-<img src="/img/packt_html_snap.png" /></p>
+<p>Inspecting the html of the page we notice that we are interested in the “<code>dotd-title</code>” and the “<code>dotd-main-book-image float-left</code>” <code>div</code>’s. This concrete example is simpler and it was easy to locate the items by right-clicking on them in the browser and then <code>Inspect Element</code>-ing them but for more complicated tasks I find <a href="http://selectorgadget.com/">Selector Gadget</a> pretty awesome as it saves me lots of time.</p>
+<div class="figure">
+<img src="/img/packt_html_snap.png" />
+
+</div>
 <p>We’ll pull out the book title and the cover image.</p>
 <pre class="r"><code># Scrape book deal of the day -----
 
@@ -62,15 +66,36 @@ img_link &lt;-
   rvest::html_nodes(&quot;.dotd-main-book-image&quot;) %&gt;%
   rvest::html_node(&quot;img&quot;) %&gt;%
   rvest::html_attr(&quot;src&quot;) %&gt;%
-  stringr::str_replace_all(&quot; &quot;, &quot;%20&quot;)</code></pre>
+  stringr::str_replace_all(&quot; &quot;, &quot;%20&quot;)
+
+# pick a place where you want to store
+# the book image
+image_path &lt;- &quot;path of your choice.png&quot;
+
+# grab and store the image
+img_link %&gt;%
+  paste0(&quot;http:&quot;, .) %&gt;%
+  magick::image_read() %&gt;%
+  magick::image_write(path = image_path)</code></pre>
 </div>
 <div id="push-notification-to-desktop" class="section level2">
 <h2>Push notification to desktop</h2>
-<p>Gabor Csardi’s notifer package or alternatively using toast on win or notify-send on linux. Note that notifier is currently broken so resort to version 1.0.0</p>
+<p>In order to push a notification message to the desktop one could use a <code>system2</code> call to the underlying OS lib like toast for win or notify-send for linux, however there is a neat package from Gábor Csárdi called <a href="https://github.com/gaborcsardi/notifier">notifier</a> that does all the work independent of platform. Just a small note that, at the time of writing, <code>notifier</code> was broken so <a href="https://github.com/gaborcsardi/notifier/issues/21">resort</a> to version 1.0.0 from CRAN.<br />
+Given the previous pieces of getting the book title and image went through alright, pushing a custom desktop notification now is simply calling</p>
+<pre class="r"><code># push desktop notification
+notifier::notify(
+  title = &quot;Packt book deal of the day&quot;,
+  msg = book_deal,
+  image = image_path)</code></pre>
+<p>This should already pop a notification on your screen with the title of the book as the body and a small image of the cover next to it.</p>
 </div>
 <div id="schedule-script-on-logon" class="section level2">
 <h2>Schedule script on logon</h2>
-<p>Useful packages taskscheduleR and cron - however on win there is LOGON opt but cron on linux offers only datetime triggers (or i couldn’t figure it out). therefore scheduled it as a bash script.</p>
+<p>Last thing to do is to make this a task that would run on certain schedule or trigger. After some considerations I came to the conclusion that, for me, there was not one solid time period where I could definitely say I’m almost every day in front of the computer in order to use it for scheduling.<br />
+Therefore it must be some other trigger than time. I figured a suitable moment would be for example 10 mins after I log in on my computer. I’m still opening programs or closing old tabs or generally still not focused on doing some thing, so it would be best to set up a user log-on trigger with certain time delay in order to fire up the scraper.</p>
+<p>I found that there are 2 packages that might come in handy here: <a href="https://cran.r-project.org/web/packages/taskscheduleR/index.html">taskscheduleR</a> and <a href="https://cran.r-project.org/web/packages/cronR/index.html">cronR</a>. After some fiddling around I managed to get this working with <code>taskscheduleR</code> on windows. However if you want to schedule tasks, or in general make your system do certain things through R, make sure that you have the appropriate rights and that you start RStudio as an <a href="https://github.com/bnosac/taskscheduleR/issues/16">admin</a>/sudo.<br />
+This has come and bit me a couple of times (another time was when i was trying to start a docker deamon on a linux machine and it kept failing with status 125 until i figured that i need to do <code>sudo rstudio</code> in order for it to work).</p>
+<p>cron does not quite have the same options as tasksch so had to resort to simple bash script on linux. Useful packages taskscheduleR and cron - however on win there is LOGON opt but cron on linux offers only datetime triggers (or i couldn’t figure it out). therefore scheduled it as a bash script.</p>
 </div>
 <div id="future-to-dos" class="section level2">
 <h2>Future to do’s</h2>
