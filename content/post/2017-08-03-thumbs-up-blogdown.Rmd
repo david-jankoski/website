@@ -12,7 +12,7 @@ bigimg: [{src: "/img/DSCI0172.jpg", desc: "Triangle"}]
 
 ## Hello world post
 
-A lot of times I talk to friends and colleagues about the process of finding out new interesting material, project ideas, cool visualisations or just programming language tricks'n'tips in general and the majority of time the source of these things are people's blogs. Additionally twitter and the #rstats hashtag are a major source as well but I find it is generally just a medium to actual blog posts.  
+A lot of times I talk to friends and colleagues about the process of finding out new interesting material, project ideas, cool visualisations or just programming language tricks and tips in general and the majority of time the source of these things are people's blogs. Additionally twitter and the #rstats hashtag are a major source as well but I find it is generally just a medium to actual material.  
 
 The idea of having your own blog is kinda scary or intimidating at first, because of the immediate thoughts that comes up - "What will i write about?" or "I am not good enough or the stuff that I do is not interesting enough for someone else to read".  
 But there are many, many good reasons for keeping a blog - besides sharing with others what you did and how you did it, which could potentially also help somebody else accomplish some task, to keeping track of stuff for your own sake. I really like the idea that writing blog posts forces one to practice clear, concise thought, and clean and reproducible workflow.  
