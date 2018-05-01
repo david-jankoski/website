@@ -1,10 +1,14 @@
 ---
 title: "KPN twitter analysis"
+subtitle: "Short visual exploration of KPN's twitter data"
 author: "David Jankoski"
-output: html_document
+output: 
+  html_document:
+    css: style.css
 ---
 
 ```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
+
 library("tidyverse")
 library("jsonlite")
 library("forcats")
@@ -20,30 +24,69 @@ kpn_tmls_act_json <- jsonlite::read_json("kpn_tmls_act.json")
 <script src="https://d3js.org/d3.v5.js"></script>
 <script src="libs/waypoints/lib/noframework.waypoints.min.js"></script>
 
+<br><br>
 
-<br><br><br><br>  
-<br><br><br><br>  
+### Introduction
+
+<br>
+Dear Mr. Koeleman and KPN hiring team,  
+
+Hello and welcome to this short post where my goal is to persuade You that it is an excellent idea to consider me for the Data Visualisation position at the KPN Data Streaming Team. 
+
+A brief note on my motivation to do this. I've been working for the past 3 years as a data scientist in a small startup company. I've come to realise that the part of my work that I enjoyed doing most is data visualisation.  
+
+Since I lack the "formal" schooling in this area, I started to self-study this subject on my own time. I've been reading the classics like e.g. [Edward Tufte's books](https://www.edwardtufte.com/tufte/books_vdqi) as well as the modern day greats in this area like e.g. [Tamara Munzner](http://www.cs.ubc.ca/~tmm/vadbook/). I've also attended courses (e.g. [Dominik Bauer's](https://do.minik.us/) course on Interactive Data Visualisation with D3) and I applied for 2 more courses this summer ([Moritz Stefaner](https://truth-and-beauty.net/) & [Federica Fragapane](https://www.behance.net/FedericaFragapane)).  
+
+Since I don't have any substantial portfolio to showcase what I've done in this field and most of the things that I've done in my current work are not easily showcased, I thought it will be a good idea to make a small side project directed at KPN, in order to try and get Your attention.  
+
+I hope that I can convey with this short post not just some of my skills, but also the huge motivation I have to make data visualisation a major part of my daily work. I hope you enjoy it.  
+
+<br><br>
+
+### How I got the data
+
+<br>
+My maint tool of choice is the (statistical) programming language R. I used the `rtweet` package to collect twitter data from a couple of accounts connected to KPN: [KPN](https://twitter.com/KPN), [KPN Webcare](https://twitter.com/KPNWebcare), [KPN zakelijk](https://twitter.com/KPNzakelijk), [KPN Mooiste Contact Fonds](https://twitter.com/KPNMCF).  
+
+The data was processed and transformed in R and saved in different formats for the different visualisation tools (R likes `.rds`, D3 likes `.json`). I've also put a documented script for this part in my public [github repo](https://github.com/david-jankoski/get-tweets) in case You would like to see the details.  
+
+Lastly, I wrote this document in [Rmarkdown](https://github.com/rstudio/rmarkdown) and made a web-page out of it with the help of [blogdown](https://github.com/rstudio/blogdown). That way I could do all the work using just one tool, which lessens the mental burden of switching contexts.  
+
+<br><br>
 
 
 ### Top 20 hashtags that appear next to #KPN
 
-```{r top20bars-r, echo = FALSE}
-ggplot(top20_hshtg, aes(fct_reorder(hashtags, n), n )) +
-  geom_col() +
+<br>
+As a first thing, I was interested in looking at which hashtags appear mostly together with #KPN.  
+
+<br>
+As a starting point I made this simple static plot in R which shows the top 20 hashtags.  
+
+<br><br>
+```{r top20bars-r, echo = FALSE, fig.width=9, fig.height=5}
+
+ggplot(top20_hshtg, aes(fct_reorder(hashtags, n), n)) +
+  geom_col(fill = "#1DA1F2") +
   coord_flip() +
   theme_minimal() +
   labs(
-    title = "Top 20 hashtags that co-appear with #KPN"
-  )
+    title = "Top 20 hashtags that co-appear in tweets together with #KPN",
+    x = "Hashtags",
+    y = "Count"
+  ) 
+
 ```
+<br><br>
+Improving on the previous static version, I implemented the same plot in D3 and added a bit of dynamic to the moving bars.  
 
 
-<br><br><br><br>  
-<br><br><br><br>  
+<br><br><br><br>
 
 <!-- Top 20 hashtags D3 version
      load svg container -->
-<svg id="cont-top20bars-d3" width="880" height="350"></svg>
+<svg id="cont-top20bars-d3" width="880" height="550"></svg>
+
 ```{js, class.source = "top20bars-d3", echo = FALSE}
 
 var waypoint_top20d3 = new Waypoint({
@@ -54,7 +97,7 @@ var waypoint_top20d3 = new Waypoint({
   handler: function() {
     
     var cont = d3.select("#cont-top20bars-d3"),
-        margin = {top: 10, right: 10, bottom: 30, left: 102},
+        margin = {top: 30, right: 10, bottom: 30, left: 102},
         width  = +cont.attr("width") - margin.left - margin.right,
         height = +cont.attr("height") - margin.top - margin.bottom ;
 
@@ -83,21 +126,35 @@ var waypoint_top20d3 = new Waypoint({
              .attr("height", yscale.bandwidth())
              .attr("x", 0)
              .attr("width", 0)
-             .attr("opacity", 0.2)
+             .attr("fill", "grey")
+             .attr("opacity", 0.3)
              .transition()
              .delay((d, i) => i * 70)
              .duration(800)
-             .attr("width", d => xscale(d.n));
+             .attr("width", d => xscale(d.n))
+             .attr("opacity", 1)
+             .attr("fill", "#1DA1F2");
   
         svg.append("g")
            .attr("class", "xaxis")
            .attr("transform", "translate(0," + height + ")")
-           .call(d3.axisBottom(xscale));
+           .style("font-family", "Fira Code")
+           .style("font-size", "13px")
+           .call(d3.axisBottom(xscale).ticks(10));
   
         cont.append("g")
             .attr("class", "yaxis")
             .attr("transform", "translate(100, " + margin.top + ")")
+            .style("font-size", "12px")
+            .style("font-family", "Fira Code")
             .call(d3.axisLeft(yscale));
+        
+        cont.append("text")
+            .attr("x", (width / 2))             
+            .attr("y", 0 + (margin.bottom / 2))
+            .attr("text-anchor", "middle")  
+            .style("font-size", "20px") 
+            .text("Top 20 hashtags");
     });
       
        this.destroy()
@@ -105,17 +162,20 @@ var waypoint_top20d3 = new Waypoint({
 });
 ```
 
+<br><br>
 
+Wishlist: In it's current form it does not convey anything more than the R plot and it this sense I would prefer to keep it as a static plot. However with a bit more work it could be made even more interactive - for example when the user clicks on a bar, a random tweet containing that hashtag could be displayed in a side window.  
 
-<br><br><br><br>  
-<br><br><br><br>  
+<br><br>
 
+### Map of tweets
 
-### Map tweets places
+<br>
+The obtained twitter data contains geo-information for a small portion of the harvested tweets. Next we are interested in where do the twitter users come from and what do they say?  
+For this map visualisation I used R and [leaflet](https://rstudio.github.io/leaflet/) with OpenStreetMaps tiles and twitter pins from AwesomeMarkers. When the user hovers over a twitter pin on the map, the screen name of the person who sent out that tweet appears. When clicked - the pin displays the contents of the tweet.  
 
-Where do the twitter users come from and what do they say ?
-
-```{r tweetmap, echo = FALSE}
+<br><br>
+```{r tweetmap, echo = FALSE, warning=FALSE, fig.width=11}
 
 library("leaflet")
 tw_icon <- 
@@ -130,27 +190,29 @@ leaflet::leaflet(data = kpn_all) %>%
   leaflet::addProviderTiles(
     "OpenStreetMap.BlackAndWhite"
   ) %>%
-  leaflet::setView(lat = 52.3702, lng = 4.8952, zoom = 9) %>%
+  leaflet::setView(lat = 52.3702, lng = 4.8952, zoom = 8) %>%
   leaflet::addAwesomeMarkers(
     lng = ~ lng, lat = ~ lat,
     icon = tw_icon, popup = ~ text,
     label = ~ screen_name) 
 ```
 
-
-<br><br><br><br>  
-<br><br><br><br>  
-
+<br><br><br>
 
 ### Retweet network 
+<br>
 
-Force directed layout of network of retweets
+Lastly I wanted to visualise the retweet relationships within the data (each tweet provides some meta-info on whether it is a retweet and if yes, which users are being retweeted).  
+To this end I considered 2 options - a [force directed graph](https://www.google.com/search?q=d3+force+directed+graph&client=ubuntu&hs=LaZ&channel=fs&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiL-6_f4-TaAhXPLFAKHdXKDSYQ_AUICigB&biw=1467&bih=686&dpr=1.09#imgrc=93o9-uyrTGRrTM:) and a [chord diagram](https://www.google.com/search?client=ubuntu&hs=CvE&channel=fs&biw=1467&bih=686&tbm=isch&sa=1&ei=I4HoWsj7HdHNwQK1xrSoCA&q=d3+chord+diagram&oq=d3+chord&gs_l=psy-ab.3.0.0l3j0i30k1j0i24k1l6.92246.93132.0.93920.7.6.1.0.0.0.118.508.5j1.6.0....0...1c.1.64.psy-ab..0.7.504...0i67k1j0i5i30k1j0i13k1j0i13i30k1.0.TdTb8iyP-JA#imgrc=olLROt4k8l5eEM:).  
+I went with the force directed graph as a way to visualise this network of retweets because it offered more interactivity:  
 
+- I included the twitter profile photo for each user (when available)
+- on hover over the nodes display the screen name of the user
+- on double-click only the connected portion of the graph is highlighted (and switches back to normal view on a second double-click)
+- the user can drag the nodes around which makes it much more fun (in fact I believe that this is the first thing anyone does when shown this kind of graph!) 
 
-
+(Warning: Will probably slow down your browser - please have patience shortly. thank you!)
 <br><br><br><br>  
-<br><br><br><br>  
-
 
 <!-- Force Network Graph
      load svg container -->
@@ -173,7 +235,7 @@ var waypoint_force = new Waypoint({
       imgrad = 20;
   
 
-  d3.json("kpn_retweet_graph.json")
+  d3.json("kpn_retweet_graph2.json")
     .then(function(graph) {
     
       var force = 
@@ -186,7 +248,7 @@ var waypoint_force = new Waypoint({
           
           .force("center", d3.forceCenter(width / 2, height / 2) )
           
-          .force("radial", d3.forceRadial(30, width / 2, height / 2).strength(0.1) )
+          .force("radial", d3.forceRadial(30, width / 2, height / 2).strength(0.2) )
           
           .on("tick", ticked);
 
@@ -340,3 +402,18 @@ var waypoint_force = new Waypoint({
 });
     
 ```
+
+
+<br><br><br><br>
+
+Thank You for taking the time to go through my project. I hope you liked this short walk through some of the aspects of KPN's twitter presence. It was a fun project to do and there are many things which I would like to revisit and improve on in the following weeks.  
+
+If you liked it and would like to consider me for the Data Vizualisation role, I would be very happy to hear from You. You can find my contact details on my CV.  
+
+<br>
+
+Wish you a nice day,  
+David
+
+
+<br><br><br>
