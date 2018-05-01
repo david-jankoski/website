@@ -1,8 +1,6 @@
 @font-face {
     font-family: "Fira Code";
-    src: url("Fira-Code.otf") format("otf"),
-         url("Fira-Code.woff2") format("woff2"),
-         url("Fira-Code.woff") format("woff");
+    src: url("Fira-Code.otf") format("otf");
 }
 
 body .main-container {
