@@ -94,3 +94,9 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 #    name = "Code Sample"
 #    url = "post/2016-03-08-code-sample"
 #    weight = 3
+
+[[headers]]
+  for = "/*.ttf"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "application/font-ttf"
